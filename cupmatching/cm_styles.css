@@ -1,0 +1,65 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.game-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.answer-boxes,
+.user-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+}
+
+.box {
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.box.grey-layer {
+  background-color: grey;
+}
+
+.box.hidden {
+  display: none;
+}
+
+.box.correct {
+  border: 2px solid green;
+}
+
+.box.incorrect {
+  border: 2px solid red;
+}
+
+button {
+  margin: 10px;
+}
+
+#timer {
+  font-weight: bold;
+}
+.correct {
+  border: 2px solid green;
+  position: relative;
+}
+
+.correct::after {
+  content: "X";
+  color: green;
+  font-size: 24px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
