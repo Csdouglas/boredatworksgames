@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const userBoxes = document.querySelectorAll(".user-box");
   const objects = document.querySelectorAll(".object");
   const errorMessage = document.querySelector(".error-message");
-  const objectsContainer = document.querySelector(".objects");
   const objectsBoard = document.querySelector(".objects-board");
 
   objects.forEach((obj) => {
@@ -76,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       object.style.backgroundColor = object.dataset.color; // Reset color
-      objectsContainer.appendChild(object);
+      objectsBoard.appendChild(object);
       errorMessage.textContent = ""; // Clear error message if object is placed correctly
       console.log("Object dropped into objects board:", color);
     }
