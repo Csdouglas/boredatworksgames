@@ -1,151 +1,84 @@
-const colors = ["red", "blue", "green", "yellow", "purple"];
-let timerInterval;
-let seconds = 0;
-let turns = 0;
-let answerBoxes = [];
-let userBoxes = [];
-let correctOrder = [];
-let currentOrder = [];
-
 document.addEventListener("DOMContentLoaded", () => {
-  const answerBoxesContainer = document.querySelector(".answer-boxes");
-  const userBoxesContainer = document.querySelector(".user-boxes");
-  const startButton = document.getElementById("startGame");
-  const lockButton = document.getElementById("lockItIn");
-  const message = document.getElementById("message");
-  const timerElement = document.getElementById("timer");
-  const playAgainButton = document.getElementById("playAgain");
+  const userBoxes = document.querySelectorAll(".user-box");
+  const objects = document.querySelectorAll(".object");
+  const errorMessage = document.querySelector(".error-message");
+  const objectsContainer = document.querySelector(".objects");
+  const objectsBoard = document.querySelector(".objects-board");
 
-  function initializeGame() {
-    answerBoxes = [];
-    userBoxes = [];
-    correctOrder = [];
-    currentOrder = [];
-    turns = 0;
-    seconds = 0;
-    message.textContent = "";
-    timerElement.textContent = "Time: 0s";
-
-    // Clear previous boxes
-    answerBoxesContainer.innerHTML = "";
-    userBoxesContainer.innerHTML = "";
-
-    // Shuffle colors for user boxes
-    const shuffledColors = colors.sort(() => Math.random() - 0.5);
-
-    // Create answer boxes with grey layer
-    colors.forEach((color) => {
-      const box = document.createElement("div");
-      box.className = "box grey-layer";
-      answerBoxesContainer.appendChild(box);
-      answerBoxes.push(box);
-      correctOrder.push(color);
-    });
-
-    // Create user boxes with random order
-    shuffledColors.forEach((color) => {
-      const box = document.createElement("div");
-      box.className = "box";
-      box.style.backgroundColor = color;
-      box.draggable = true;
-      box.addEventListener("dragstart", handleDragStart);
-      box.addEventListener("dragover", handleDragOver);
-      box.addEventListener("drop", handleDrop);
-      userBoxesContainer.appendChild(box);
-      userBoxes.push(box);
-      currentOrder.push(color);
-    });
-
-    startButton.disabled = false;
-    lockButton.disabled = true;
-    playAgainButton.style.display = "none";
-  }
-
-  function startTimer() {
-    timerInterval = setInterval(() => {
-      seconds++;
-      timerElement.textContent = `Time: ${seconds}s`;
-    }, 1000);
-  }
-
-  function stopTimer() {
-    clearInterval(timerInterval);
-  }
-
-  function handleDragStart(event) {
-    event.dataTransfer.setData(
-      "text/plain",
-      event.target.style.backgroundColor
-    );
-    event.dataTransfer.setData("index", userBoxes.indexOf(event.target));
-  }
-
-  function handleDragOver(event) {
-    event.preventDefault();
-  }
-
-  function handleDrop(event) {
-    event.preventDefault();
-    const draggedIndex = event.dataTransfer.getData("index");
-    const draggedBox = userBoxes[draggedIndex];
-    const targetBox = event.target;
-
-    if (targetBox.classList.contains("box")) {
-      const targetIndex = userBoxes.indexOf(targetBox);
-
-      // Swap boxes in the userBoxes array
-      userBoxes[draggedIndex] = targetBox;
-      userBoxes[targetIndex] = draggedBox;
-
-      // Reorder the DOM
-      userBoxesContainer.insertBefore(draggedBox, targetBox);
-    }
-  }
-
-  function checkOrder() {
-    let correctCount = 0;
-    userBoxes.forEach((box, index) => {
-      const color = box.style.backgroundColor;
-      if (color === correctOrder[index]) {
-        box.classList.add("correct");
-        box.classList.remove("incorrect"); // Remove 'incorrect' class if it's in the right spot
-        correctCount++;
-      } else {
-        box.classList.remove("correct"); // Remove 'correct' class if it's not in the right spot
-        box.classList.add("incorrect");
-      }
-    });
-
-    return correctCount;
-  }
-
-  function handleLockItIn() {
-    turns++;
-    const correctCount = checkOrder();
-
-    if (correctCount === colors.length) {
-      answerBoxes.forEach((box, index) => {
-        box.style.backgroundColor = correctOrder[index];
-        box.classList.remove("grey-layer");
-      });
-      stopTimer();
-      message.textContent = `Solved in ${turns} turns!`;
-      playAgainButton.style.display = "block";
-    } else {
-      message.textContent = `${correctCount} in the right spot.`;
-    }
-  }
-
-  startButton.addEventListener("click", () => {
-    initializeGame();
-    startTimer();
-    startButton.disabled = true;
-    lockButton.disabled = false;
+  objects.forEach((obj) => {
+    obj.addEventListener("dragstart", handleDragStart);
+    obj.addEventListener("dragend", handleDragEnd);
   });
 
-  lockButton.addEventListener("click", handleLockItIn);
+  userBoxes.forEach((box) => {
+    box.addEventListener("dragover", handleDragOver);
+    box.addEventListener("drop", handleDropToBox);
+  });
 
-  playAgainButton.addEventListener("click", initializeGame);
+  objectsBoard.addEventListener("dragover", handleDragOver);
+  objectsBoard.addEventListener("drop", handleDropToBoard);
 
-  initializeGame();
+  function handleDragStart(e) {
+    e.dataTransfer.setData("text/plain", e.target.dataset.color);
+    e.target.classList.add("dragging");
+    console.log("Drag start:", e.target.dataset.color);
+    // Clear error message on new drag operation
+    errorMessage.textContent = "";
+  }
+
+  function handleDragEnd(e) {
+    e.target.classList.remove("dragging");
+    if (!e.target.parentElement.classList.contains("user-box")) {
+      e.target.style.backgroundColor = e.target.dataset.color; // Reset color
+    }
+    console.log("Drag end:", e.target.dataset.color);
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault(); // Necessary to allow dropping
+  }
+
+  function handleDropToBox(e) {
+    e.preventDefault();
+    const color = e.dataTransfer.getData("text/plain");
+    const box = e.target.closest(".user-box"); // Ensure we drop into a user box
+
+    if (!box) return; // If the drop target is not a user box, do nothing
+
+    const existingObject = box.querySelector(".object");
+    if (existingObject) {
+      errorMessage.textContent =
+        "This box is already occupied. Please remove the current object first.";
+      console.log("Error: Box already occupied");
+      return;
+    }
+
+    const object = document.querySelector(`.object[data-color="${color}"]`);
+    if (object) {
+      object.style.backgroundColor = "transparent"; // Make it invisible when dragged
+      box.style.backgroundColor = color;
+      box.appendChild(object);
+      errorMessage.textContent = ""; // Clear any previous error message
+      console.log("Object dropped into box:", color);
+    }
+  }
+
+  function handleDropToBoard(e) {
+    e.preventDefault();
+    const color = e.dataTransfer.getData("text/plain");
+    const object = document.querySelector(`.object[data-color="${color}"]`);
+
+    if (object) {
+      // Find the parent user box if it exists and clear its background color
+      const parentBox = object.parentElement;
+      if (parentBox && parentBox.classList.contains("user-box")) {
+        parentBox.style.backgroundColor = "transparent"; // Clear the background color of the user box
+      }
+
+      object.style.backgroundColor = object.dataset.color; // Reset color
+      objectsContainer.appendChild(object);
+      errorMessage.textContent = ""; // Clear error message if object is placed correctly
+      console.log("Object dropped into objects board:", color);
+    }
+  }
 });

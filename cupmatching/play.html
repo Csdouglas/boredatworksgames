@@ -3,25 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cup Matching Game</title>
+    <title>Cup Matching Challenge</title>
     <link rel="stylesheet" href="cm_styles.css" />
   </head>
   <body>
-    <h1>Cup Matching Game</h1>
-    <div class="game-container">
-      <div class="answer-boxes">
-        <!-- Placeholder for answer boxes -->
-      </div>
-      <div class="user-boxes">
-        <!-- Placeholder for user boxes -->
+    <div class="user-board">
+      <div class="user-box" data-index="0"></div>
+      <div class="user-box" data-index="1"></div>
+      <div class="user-box" data-index="2"></div>
+      <div class="user-box" data-index="3"></div>
+      <div class="user-box" data-index="4"></div>
+    </div>
+    <div class="objects-board">
+      <div class="objects">
+        <div class="object" draggable="true" data-color="red"></div>
+        <div class="object" draggable="true" data-color="blue"></div>
+        <div class="object" draggable="true" data-color="green"></div>
+        <div class="object" draggable="true" data-color="yellow"></div>
+        <div class="object" draggable="true" data-color="purple"></div>
       </div>
     </div>
-    <button id="startGame">Start Game</button>
-    <button id="lockItIn" disabled>LOCK IT IN</button>
-    <p id="message"></p>
-    <p id="timer">Time: 0s</p>
-    <button id="playAgain" style="display: none">Play Again</button>
-
+    <div class="error-message"></div>
     <script src="cm_script.js"></script>
   </body>
 </html>
