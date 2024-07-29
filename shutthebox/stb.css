@@ -81,16 +81,24 @@ body {
 }
 
 button {
-  margin: 10px;
+  margin: 20px;
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  background-color: tan;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
 }
 
 #message {
   font-size: 18px;
-  color: white;
+
+  color: black;
   margin-top: 20px;
+  padding: 10px;
+  font-weight: bold;
 }
 
 /* Optional: Style for the dice images to ensure they fit within the container */
@@ -98,5 +106,5 @@ button {
 #die2 {
   width: 60px; /* Adjust the width as needed */
   height: 60px; /* Adjust the height as needed */
-  margin: 10px;
+  margin: 10px 5px 10px 0px;
 }

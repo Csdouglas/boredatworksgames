@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       animateDice();
     } else {
       messageContainer.textContent =
-        "Error: You cannot roll the dice again until the default dice are displayed.";
+        "Error: You cannot roll the dice again until you select!";
     }
   }
 
