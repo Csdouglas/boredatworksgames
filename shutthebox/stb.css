@@ -1,0 +1,102 @@
+/* Apply Montserrat font globally */
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Add styles for the title container */
+.title-container {
+  text-align: center; /* Center the title text */
+  margin-bottom: 20px; /* Space between title and game container */
+}
+
+.title-container h1 {
+  font-size: 36px; /* Adjust the font size as needed */
+  color: darkgreen; /* Optional: Adjust the title color */
+  margin: 0; /* Remove default margin */
+}
+
+/* Add styles for the game container */
+.game-container {
+  border: 5px solid tan; /* Tan border color */
+  background-color: green; /* Green fill color */
+  padding: 20px; /* Optional: add padding inside the border */
+  border-radius: 10px; /* Optional: rounded corners for the rectangle */
+  max-width: 800px; /* Optional: set a maximum width for the container */
+  margin: auto; /* Center the container horizontally */
+  text-align: center; /* Center text inside the container */
+}
+
+/* Add styles for the below container */
+.below-container {
+  text-align: center; /* Center the title text */
+  margin: 20px 0 0 0; /* Space between title and game container */
+}
+
+.below-container button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: white;
+  border: 7px solid green;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style for the dice images */
+.dice {
+  border-radius: 8px; /* Adjust the value for more or less rounded corners */
+  overflow: hidden; /* Ensures the rounded corners are clipped correctly */
+}
+
+/* Styles for the tiles */
+.tile {
+  width: 50px;
+  height: 70px;
+  margin: 5px;
+  line-height: 70px; /* Match the line-height with the height for vertical centering */
+  text-align: center;
+  background-color: tan;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block; /* Ensure tiles are aligned properly */
+}
+
+.tile.selected {
+  background-color: yellow;
+}
+.tile.closed {
+  background-color: green;
+  color: tan;
+  border: 1px solid tan;
+  cursor: not-allowed;
+}
+/* Additional styles for positioning and layout */
+#tiles {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#message {
+  font-size: 18px;
+  color: white;
+  margin-top: 20px;
+}
+
+/* Optional: Style for the dice images to ensure they fit within the container */
+#die1,
+#die2 {
+  width: 60px; /* Adjust the width as needed */
+  height: 60px; /* Adjust the height as needed */
+  margin: 10px;
+}
