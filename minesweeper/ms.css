@@ -17,14 +17,12 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  width: 300px;
+  width: 400px;
   margin-bottom: 10px;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(10, 30px);
-  grid-template-rows: repeat(10, 30px);
   gap: 2px;
 }
 

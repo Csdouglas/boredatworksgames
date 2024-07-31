@@ -1,6 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const BOARD_SIZE = 10;
-  const MINE_COUNT = 10;
+  const difficultySettings = {
+    easy: { size: 8, mines: 10 },
+    medium: { size: 16, mines: 40 },
+    hard: { size: 24, mines: 99 },
+  };
+  let BOARD_SIZE = difficultySettings.easy.size;
+  let MINE_COUNT = difficultySettings.easy.mines;
   let board = [];
   let mineCount = MINE_COUNT;
   let timer;
@@ -11,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const mineCountElement = document.getElementById("mine-count");
   const timerElement = document.getElementById("timer");
   const resetButton = document.getElementById("reset-button");
+  const difficultySelect = document.getElementById("difficulty");
 
   function initBoard() {
     board = Array(BOARD_SIZE)
@@ -210,12 +216,16 @@ document.addEventListener("DOMContentLoaded", () => {
     firstClick = true;
     timeElapsed = 0;
     timerElement.textContent = timeElapsed;
+    const difficulty = difficultySelect.value;
+    BOARD_SIZE = difficultySettings[difficulty].size;
+    MINE_COUNT = difficultySettings[difficulty].mines;
     mineCount = MINE_COUNT;
     mineCountElement.textContent = mineCount;
     initBoard();
   }
 
   resetButton.addEventListener("click", resetGame);
+  difficultySelect.addEventListener("change", resetGame);
 
   initBoard();
 });
