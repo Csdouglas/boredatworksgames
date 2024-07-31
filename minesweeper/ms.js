@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const boardElement = document.getElementById("board");
   const mineCountElement = document.getElementById("mine-count");
   const timerElement = document.getElementById("timer");
+  const resetButton = document.getElementById("reset-button");
 
   function initBoard() {
     board = Array(BOARD_SIZE)
@@ -29,13 +30,25 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function placeMines(excludeRow, excludeCol) {
+    const excludeCells = [
+      [excludeRow, excludeCol],
+      [excludeRow - 1, excludeCol],
+      [excludeRow + 1, excludeCol],
+      [excludeRow, excludeCol - 1],
+      [excludeRow, excludeCol + 1],
+      [excludeRow - 1, excludeCol - 1],
+      [excludeRow - 1, excludeCol + 1],
+      [excludeRow + 1, excludeCol - 1],
+      [excludeRow + 1, excludeCol + 1],
+    ];
+
     let placedMines = 0;
     while (placedMines < MINE_COUNT) {
       const row = Math.floor(Math.random() * BOARD_SIZE);
       const col = Math.floor(Math.random() * BOARD_SIZE);
       if (
         !board[row][col].isMine &&
-        (row !== excludeRow || col !== excludeCol)
+        !excludeCells.some(([r, c]) => r === row && c === col)
       ) {
         board[row][col].isMine = true;
         placedMines++;
@@ -129,6 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const col = parseInt(event.target.dataset.col);
     if (board[row][col].isOpened) return;
     board[row][col].isFlagged = !board[row][col].isFlagged;
+    mineCount += board[row][col].isFlagged ? -1 : 1;
+    mineCountElement.textContent = mineCount;
     renderBoard();
   }
 
@@ -168,10 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function gameOver(won) {
     clearInterval(timer);
     alert(won ? "Congratulations! You won!" : "Game Over! You hit a mine.");
-    initBoard();
-    firstClick = true;
-    timeElapsed = 0;
-    timerElement.textContent = timeElapsed;
+    resetGame();
   }
 
   function checkVictory() {
@@ -192,6 +204,18 @@ document.addEventListener("DOMContentLoaded", () => {
       timerElement.textContent = timeElapsed;
     }, 1000);
   }
+
+  function resetGame() {
+    clearInterval(timer);
+    firstClick = true;
+    timeElapsed = 0;
+    timerElement.textContent = timeElapsed;
+    mineCount = MINE_COUNT;
+    mineCountElement.textContent = mineCount;
+    initBoard();
+  }
+
+  resetButton.addEventListener("click", resetGame);
 
   initBoard();
 });
