@@ -3,45 +3,347 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test SVG Images</title>
+    <title>Minesweeper</title>
     <style>
-      .die {
-        width: 100px;
-        height: 100px;
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      #game {
+        text-align: center;
+      }
+      #info {
+        margin-bottom: 10px;
+      }
+      #board {
+        display: grid;
+        gap: 2px;
+      }
+      .cell {
+        width: 30px;
+        height: 30px;
+        background-color: #ccc;
+        border: 1px solid #999;
+        cursor: pointer;
+        text-align: center;
+        line-height: 30px;
+        font-size: 18px;
+      }
+      .cell.opened {
+        background-color: #eee;
+      }
+      .cell.flagged {
+        background-color: #f00;
+        color: #fff;
+      }
+      .cell.mine {
+        background-color: #f00;
+      }
+      .cell.zero {
+        background-color: #eee;
+      }
+      .cell[data-number="1"] {
+        color: #0000ff;
+      }
+      .cell[data-number="2"] {
+        color: #00ff00;
+      }
+      .cell[data-number="3"] {
+        color: #ff0000;
+      }
+      .cell[data-number="4"] {
+        color: #ff00ff;
+      }
+      .cell[data-number="5"] {
+        color: #00ffff;
+      }
+      .cell[data-number="6"] {
+        color: #ffff00;
+      }
+      .cell[data-number="7"] {
+        color: #800000;
+      }
+      .cell[data-number="8"] {
+        color: #808080;
+      }
+      #difficulty {
+        margin-bottom: 10px;
       }
     </style>
   </head>
   <body>
-    <h1>Dice Images Test</h1>
-    <img
-      class="die"
-      src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-six-faces-one.svg"
-      alt="Die 1"
-    />
-    <img
-      class="die"
-      src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-six-faces-two.svg"
-      alt="Die 2"
-    />
-    <img
-      class="die"
-      src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-six-faces-three.svg"
-      alt="Die 3"
-    />
-    <img
-      class="die"
-      src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-six-faces-four.svg"
-      alt="Die 4"
-    />
-    <img
-      class="die"
-      src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-six-faces-five.svg"
-      alt="Die 5"
-    />
-    <img
-      class="die"
-      src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-six-faces-six.svg"
-      alt="Die 6"
-    />
+    <div id="game">
+      <div id="info">
+        <button id="restart">Restart</button>
+        <span id="timer">Time: 0</span>
+        <span id="mine-count">Mines: 10</span>
+        <div id="difficulty">
+          <label for="difficulty-select">Difficulty:</label>
+          <select id="difficulty-select">
+            <option value="beginner">Beginner (8x8, 10 mines)</option>
+            <option value="intermediate">Intermediate (16x16, 40 mines)</option>
+            <option value="expert">Expert (30x16, 99 mines)</option>
+            <option value="custom">Custom</option>
+          </select>
+          <div id="custom-settings" style="display: none">
+            <label for="rows">Rows:</label>
+            <input type="number" id="rows" value="10" min="5" />
+            <label for="cols">Cols:</label>
+            <input type="number" id="cols" value="10" min="5" />
+            <label for="mines">Mines:</label>
+            <input type="number" id="mines" value="10" min="1" />
+          </div>
+        </div>
+      </div>
+      <div id="board"></div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let boardSizeX = 10;
+        let boardSizeY = 10;
+        let minesCount = 10;
+        let board = [];
+        let mines = [];
+        let gameOver = false;
+        let timerInterval;
+        let seconds = 0;
+        let firstClick = true;
+
+        const difficultySelect = document.getElementById("difficulty-select");
+        const customSettings = document.getElementById("custom-settings");
+
+        difficultySelect.addEventListener("change", (e) => {
+          switch (e.target.value) {
+            case "beginner":
+              boardSizeX = 8;
+              boardSizeY = 8;
+              minesCount = 10;
+              break;
+            case "intermediate":
+              boardSizeX = 16;
+              boardSizeY = 16;
+              minesCount = 40;
+              break;
+            case "expert":
+              boardSizeX = 30;
+              boardSizeY = 16;
+              minesCount = 99;
+              break;
+            case "custom":
+              boardSizeX = parseInt(document.getElementById("rows").value);
+              boardSizeY = parseInt(document.getElementById("cols").value);
+              minesCount = parseInt(document.getElementById("mines").value);
+              customSettings.style.display = "block";
+              return;
+          }
+          customSettings.style.display = "none";
+          initGame();
+        });
+
+        function initGame() {
+          board = Array(boardSizeX)
+            .fill()
+            .map(() =>
+              Array(boardSizeY).fill({
+                state: "unopened",
+                mine: false,
+                number: 0,
+              })
+            );
+          mines = [];
+          gameOver = false;
+          seconds = 0;
+          document.getElementById("timer").textContent = `Time: ${seconds}`;
+          document.getElementById(
+            "mine-count"
+          ).textContent = `Mines: ${minesCount}`;
+          updateBoard();
+          clearInterval(timerInterval);
+          timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function generateMines(firstClickX, firstClickY) {
+          let count = 0;
+          while (count < minesCount) {
+            const x = Math.floor(Math.random() * boardSizeX);
+            const y = Math.floor(Math.random() * boardSizeY);
+            if (!board[x][y].mine && (x !== firstClickX || y !== firstClickY)) {
+              board[x][y].mine = true;
+              mines.push({ x, y });
+              count++;
+            }
+          }
+        }
+
+        function calculateNumbers() {
+          for (let x = 0; x < boardSizeX; x++) {
+            for (let y = 0; y < boardSizeY; y++) {
+              if (board[x][y].mine) continue;
+
+              let mineCount = 0;
+              for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                  if (i === 0 && j === 0) continue;
+                  const nx = x + i;
+                  const ny = y + j;
+                  if (
+                    nx >= 0 &&
+                    nx < boardSizeX &&
+                    ny >= 0 &&
+                    ny < boardSizeY &&
+                    board[nx][ny].mine
+                  ) {
+                    mineCount++;
+                  }
+                }
+              }
+              board[x][y].number = mineCount;
+            }
+          }
+        }
+
+        function updateBoard() {
+          const boardElement = document.getElementById("board");
+          boardElement.innerHTML = "";
+          boardElement.style.gridTemplateColumns = `repeat(${boardSizeX}, 30px)`;
+          boardElement.style.gridTemplateRows = `repeat(${boardSizeY}, 30px)`;
+
+          for (let x = 0; x < boardSizeX; x++) {
+            for (let y = 0; y < boardSizeY; y++) {
+              const cell = document.createElement("div");
+              cell.className = `cell ${board[x][y].state}`;
+              cell.dataset.x = x;
+              cell.dataset.y = y;
+              cell.dataset.number = board[x][y].number;
+
+              if (board[x][y].state === "opened") {
+                if (board[x][y].mine) {
+                  cell.classList.add("mine");
+                } else if (board[x][y].number === 0) {
+                  cell.classList.add("zero");
+                } else {
+                  cell.textContent = board[x][y].number;
+                }
+              }
+
+              cell.addEventListener("click", () => handleClick(x, y));
+              cell.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                handleRightClick(x, y);
+              });
+
+              boardElement.appendChild(cell);
+            }
+          }
+        }
+
+        function handleClick(x, y) {
+          if (gameOver || board[x][y].state !== "unopened") return;
+
+          if (firstClick) {
+            generateMines(x, y);
+            calculateNumbers();
+            firstClick = false;
+          }
+
+          if (board[x][y].mine) {
+            gameOver = true;
+            clearInterval(timerInterval);
+            alert("Game Over!");
+            revealMines();
+          } else {
+            revealCell(x, y);
+          }
+        }
+
+        function handleRightClick(x, y) {
+          if (gameOver || board[x][y].state === "opened") return;
+
+          board[x][y].state =
+            board[x][y].state === "flagged" ? "unopened" : "flagged";
+          updateBoard();
+        }
+
+        function revealCell(x, y) {
+          if (
+            x < 0 ||
+            x >= boardSizeX ||
+            y < 0 ||
+            y >= boardSizeY ||
+            board[x][y].state !== "unopened"
+          )
+            return;
+
+          board[x][y].state = "opened";
+          if (board[x][y].mine) {
+            return;
+          }
+          if (board[x][y].number === 0) {
+            for (let i = -1; i <= 1; i++) {
+              for (let j = -1; j <= 1; j++) {
+                if (i === 0 && j === 0) continue;
+                revealCell(x + i, y + j);
+              }
+            }
+          }
+
+          // Check for chording
+          checkChording(x, y);
+
+          updateBoard();
+        }
+
+        function checkChording(x, y) {
+          if (board[x][y].number === 0) return;
+
+          let flaggedCount = 0;
+          let cellsToReveal = [];
+
+          for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+              if (i === 0 && j === 0) continue;
+              const nx = x + i;
+              const ny = y + j;
+              if (nx >= 0 && nx < boardSizeX && ny >= 0 && ny < boardSizeY) {
+                const neighbor = board[nx][ny];
+                if (neighbor.state === "flagged") flaggedCount++;
+                if (neighbor.state === "unopened")
+                  cellsToReveal.push({ x: nx, y: ny });
+              }
+            }
+          }
+
+          if (flaggedCount === board[x][y].number) {
+            cellsToReveal.forEach((cell) => {
+              revealCell(cell.x, cell.y);
+            });
+          }
+        }
+
+        function revealMines() {
+          mines.forEach((mine) => {
+            board[mine.x][mine.y].state = "opened";
+          });
+          updateBoard();
+        }
+
+        function updateTimer() {
+          seconds++;
+          document.getElementById("timer").textContent = `Time: ${seconds}`;
+        }
+
+        document.getElementById("restart").addEventListener("click", () => {
+          firstClick = true;
+          initGame();
+        });
+
+        initGame();
+      });
+    </script>
   </body>
 </html>
