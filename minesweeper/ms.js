@@ -11,12 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let timer;
   let timeElapsed = 0;
   let firstClick = true;
+  let testingMode = false;
 
   const boardElement = document.getElementById("board");
   const mineCountElement = document.getElementById("mine-count");
   const timerElement = document.getElementById("timer");
   const resetButton = document.getElementById("reset-button");
+  const testingButton = document.getElementById("testing-button");
   const difficultySelect = document.getElementById("difficulty");
+  const highScoresElement = document.getElementById("high-scores");
 
   function initBoard() {
     board = Array(BOARD_SIZE)
@@ -33,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     mineCountElement.textContent = mineCount;
     renderBoard();
+    loadHighScores();
   }
 
   function placeMines(excludeRow, excludeCol) {
@@ -116,6 +120,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (board[row][col].isFlagged) {
           cellElement.classList.add("flagged");
         }
+        if (testingMode && board[row][col].isMine) {
+          cellElement.classList.add("testing");
+        }
         cellElement.addEventListener("click", handleCellClick);
         cellElement.addEventListener("contextmenu", handleCellFlag);
         boardElement.appendChild(cellElement);
@@ -189,6 +196,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function gameOver(won) {
     clearInterval(timer);
     alert(won ? "Congratulations! You won!" : "Game Over! You hit a mine.");
+    if (won) {
+      saveHighScore();
+    }
     resetGame();
   }
 
@@ -224,7 +234,45 @@ document.addEventListener("DOMContentLoaded", () => {
     initBoard();
   }
 
+  function saveHighScore() {
+    const difficulty = difficultySelect.value;
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || {};
+    highScores[difficulty] = highScores[difficulty] || [];
+    highScores[difficulty].push(timeElapsed);
+    highScores[difficulty].sort((a, b) => a - b);
+    if (highScores[difficulty].length > 5) {
+      highScores[difficulty].pop();
+    }
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    loadHighScores();
+  }
+
+  function loadHighScores() {
+    const highScores = JSON.parse(localStorage.getItem("highScores")) || {};
+    const difficulty = difficultySelect.value;
+    const highScoreList = highScores[difficulty] || [];
+    if (!Array.isArray(highScoreList)) {
+      highScores[difficulty] = [];
+      localStorage.setItem("highScores", JSON.stringify(highScores));
+    }
+    highScoresElement.innerHTML = `<h3>Top 5 High Scores (${difficulty}):</h3>`;
+    if (highScoreList.length === 0) {
+      highScoresElement.innerHTML += "<p>None</p>";
+    } else {
+      highScoresElement.innerHTML += `<ol>${highScoreList
+        .map((score) => `<li>${score}s</li>`)
+        .join("")}</ol>`;
+    }
+    console.log(`High Scores for ${difficulty}:`, highScoreList);
+  }
+
+  function toggleTestingMode() {
+    testingMode = !testingMode;
+    renderBoard();
+  }
+
   resetButton.addEventListener("click", resetGame);
+  testingButton.addEventListener("click", toggleTestingMode);
   difficultySelect.addEventListener("change", resetGame);
 
   initBoard();

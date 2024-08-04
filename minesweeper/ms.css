@@ -17,8 +17,14 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  width: 400px;
+  width: 450px;
   margin-bottom: 10px;
+}
+
+.high-scores {
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-align: center;
 }
 
 .board {
@@ -48,4 +54,8 @@ body {
 
 .cell.mine {
   background-color: #e57373;
+}
+
+.cell.testing {
+  background-color: pink;
 }
