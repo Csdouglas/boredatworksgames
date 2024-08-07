@@ -3,33 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Landing Page</title>
+    <title>Game Hosting Website</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <section class="section" id="daily">
-        <h2>Daily</h2>
-        <div class="card-container">
-          <a href="wordsearch/play.html" class="card">Word Search</a>
-          <a href="daily2.html" class="card">Daily Game 2</a>
-          <a href="daily3.html" class="card">Daily Game 3</a>
-          <a href="daily4.html" class="card">Daily Game 4</a>
-          <a href="daily5.html" class="card">Daily Game 5</a>
-          <a href="daily6.html" class="card">Daily Game 6</a>
+    <header>
+      <div class="container">
+        <h1>Game Hub</h1>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Daily Games</a></li>
+            <li><a href="#">Anytime Games</a></li>
+            <li><a href="#" id="login-btn">Login</a></li>
+            <li><a href="#" id="signup-btn">Sign Up</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="daily-games">
+        <div class="container">
+          <h2>Daily Games</h2>
+          <div class="game-list">
+            <!-- List of daily games will go here -->
+            <div class="game-item">
+              <h3>Game 1</h3>
+              <p>Description of Game 1.</p>
+            </div>
+            <div class="game-item">
+              <h3>Game 2</h3>
+              <p>Description of Game 2.</p>
+            </div>
+          </div>
         </div>
       </section>
-      <section class="section" id="anytime">
-        <h2>Anytime</h2>
-        <div class="card-container">
-          <a href="cupmatching/play.html" class="card">Cup Matching</a>
-          <a href="dicerolling/dice.html" class="card">Dice Test</a>
-          <a href="anytime3.html" class="card">Anytime Game 3</a>
-          <a href="anytime4.html" class="card">Anytime Game 4</a>
-          <a href="anytime5.html" class="card">Anytime Game 5</a>
-          <a href="anytime6.html" class="card">Anytime Game 6</a>
+
+      <section id="anytime-games">
+        <div class="container">
+          <h2>Anytime Games</h2>
+          <div class="game-list">
+            <!-- List of anytime games will go here -->
+            <div class="game-item">
+              <h3>Game A</h3>
+              <p>Description of Game A.</p>
+            </div>
+            <div class="game-item">
+              <h3>Game B</h3>
+              <p>Description of Game B.</p>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Game Hub. All rights reserved.</p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
   </body>
 </html>
