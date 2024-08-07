@@ -11,32 +11,31 @@
     />
   </head>
   <body>
-    <div class="title-container">
-      <h1>Shut the Box</h1>
-    </div>
-    <div class="game-container">
-      <div id="tiles"></div>
-      <div>
-        <img
-          id="die1"
-          src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
-          alt="Die 1"
-        />
-        <img
-          id="die2"
-          src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
-          alt="Die 2"
-        />
+    <div class="container">
+      <div class="title-container">
+        <h1>Shut the Box</h1>
       </div>
-
-      <button id="rollDice">Roll Dice!</button>
-
-      <div id="message"></div>
+      <div class="game-container">
+        <div id="tiles"></div>
+        <div class="dice-container">
+          <img
+            id="die1"
+            src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
+            alt="Die 1"
+          />
+          <img
+            id="die2"
+            src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
+            alt="Die 2"
+          />
+        </div>
+        <button id="rollDice">Roll Dice!</button>
+        <div id="message"></div>
+      </div>
+      <div class="below-container">
+        <button id="newGame">New Game</button>
+      </div>
     </div>
-    <div class="below-container">
-      <button id="newGame">New Game</button>
-    </div>
-
     <script src="stb.js"></script>
   </body>
 </html>

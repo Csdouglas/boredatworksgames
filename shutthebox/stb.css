@@ -1,35 +1,62 @@
 /* Apply Montserrat font globally */
 body {
   font-family: "Montserrat", sans-serif;
+  background-color: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 10px;
+  box-sizing: border-box;
 }
 
 /* Add styles for the title container */
 .title-container {
-  text-align: center; /* Center the title text */
-  margin-bottom: 20px; /* Space between title and game container */
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .title-container h1 {
-  font-size: 36px; /* Adjust the font size as needed */
-  color: darkgreen; /* Optional: Adjust the title color */
-  margin: 0; /* Remove default margin */
+  font-size: 36px;
+  color: darkgreen;
+  margin: 0;
 }
 
 /* Add styles for the game container */
 .game-container {
-  border: 5px solid tan; /* Tan border color */
-  background-color: green; /* Green fill color */
-  padding: 20px; /* Optional: add padding inside the border */
-  border-radius: 10px; /* Optional: rounded corners for the rectangle */
-  max-width: 800px; /* Optional: set a maximum width for the container */
-  margin: auto; /* Center the container horizontally */
-  text-align: center; /* Center text inside the container */
+  border: 5px solid tan;
+  background-color: green;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.dice-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.dice-container img {
+  width: 60px; /* Ensure the dice images are of reasonable size */
+  height: 60px; /* Ensure the dice images are of reasonable size */
+  margin: 0 10px;
+  object-fit: cover; /* Ensure the images are properly contained */
 }
 
 /* Add styles for the below container */
 .below-container {
-  text-align: center; /* Center the title text */
-  margin: 20px 0 0 0; /* Space between title and game container */
+  text-align: center;
+  margin-top: 20px;
 }
 
 .below-container button {
@@ -39,28 +66,34 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   background-color: white;
-  border: 7px solid green;
+  border: 2px solid green;
   border-radius: 5px;
   cursor: pointer;
 }
 
+.below-container button:hover {
+  background-color: lightgreen;
+}
+
 /* Style for the dice images */
 .dice {
-  border-radius: 8px; /* Adjust the value for more or less rounded corners */
-  overflow: hidden; /* Ensures the rounded corners are clipped correctly */
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* Styles for the tiles */
 .tile {
-  width: 50px;
+  flex: 0 1 calc(100% / 12 - 10px); /* Adjust width to fit in one row with 10px margin */
   height: 70px;
   margin: 5px;
-  line-height: 70px; /* Match the line-height with the height for vertical centering */
+  line-height: 70px;
   text-align: center;
   background-color: tan;
+  color: black; /* Ensure the text is visible */
   font-weight: bold;
   cursor: pointer;
-  display: inline-block; /* Ensure tiles are aligned properly */
+  border: 2px solid tan; /* Add border to make tiles visible */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 .tile.selected {
@@ -69,14 +102,14 @@ body {
 .tile.closed {
   background-color: green;
   color: tan;
-  border: 1px solid tan;
   cursor: not-allowed;
 }
+
 /* Additional styles for positioning and layout */
 #tiles {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 20px;
 }
 
@@ -94,17 +127,39 @@ button {
 
 #message {
   font-size: 18px;
-
   color: black;
   margin-top: 20px;
   padding: 10px;
   font-weight: bold;
 }
 
-/* Optional: Style for the dice images to ensure they fit within the container */
-#die1,
-#die2 {
-  width: 60px; /* Adjust the width as needed */
-  height: 60px; /* Adjust the height as needed */
-  margin: 10px 5px 10px 0px;
+/* Responsive design */
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  .title-container h1 {
+    font-size: 28px;
+  }
+
+  .tile {
+    flex: 0 1 calc(100% / 6 - 10px); /* Adjust width to fit in two rows with 10px margin */
+    height: 60px;
+    line-height: 60px;
+  }
+
+  .dice-container img {
+    width: 50px;
+    height: 50px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+
+  #message {
+    font-size: 16px;
+  }
 }

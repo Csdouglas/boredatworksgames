@@ -33,10 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
     die1.src = defaultDiceImage;
     die2.src = defaultDiceImage;
 
-    // Apply dice class to default images
-    die1.classList.add("dice");
-    die2.classList.add("dice");
-
     for (let i = 1; i <= 12; i++) {
       const tile = document.createElement("div");
       tile.className = "tile";
@@ -61,9 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function rollDice() {
     if (gameOver) return;
 
-    // Check if the dice are in their default state
     if (die1.src === defaultDiceImage && die2.src === defaultDiceImage) {
-      const numRolls = 20; // Number of image changes during animation
+      const numRolls = 20;
       let currentRoll = 0;
 
       function animateDice() {
@@ -71,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
           die1.src = diceImages[Math.floor(Math.random() * diceImages.length)];
           die2.src = diceImages[Math.floor(Math.random() * diceImages.length)];
           currentRoll++;
-          setTimeout(animateDice, 50); // Change images every 50ms
+          setTimeout(animateDice, 50);
         } else {
           dice = [randomDie(), randomDie()];
           displayDice();
@@ -82,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Start animation
       animateDice();
     } else {
       messageContainer.textContent =
@@ -93,10 +87,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function displayDice() {
     die1.src = diceImages[dice[0] - 1];
     die2.src = diceImages[dice[1] - 1];
-
-    // Apply the dice class to the images
-    die1.classList.add("dice");
-    die2.classList.add("dice");
   }
 
   function randomDie() {
