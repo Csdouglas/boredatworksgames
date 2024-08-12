@@ -11,31 +11,70 @@
     />
   </head>
   <body>
-    <div class="container">
-      <div class="title-container">
-        <h1>Shut the Box</h1>
-      </div>
-      <div class="game-container">
-        <div id="tiles"></div>
-        <div class="dice-container">
-          <img
-            id="die1"
-            src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
-            alt="Die 1"
-          />
-          <img
-            id="die2"
-            src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
-            alt="Die 2"
-          />
+    <header>
+      <div class="container">
+        <div class="left-align">
+          <a href="/" class="logo-link">
+            <img src="/images/logo.png" alt="logo" />
+            <h2>SLIGHTLY<br />FUN GAMES</h2>
+          </a>
         </div>
-        <button id="rollDice">Roll Dice!</button>
-        <div id="message"></div>
+        <nav>
+          <ul>
+            <li><a href="#">Daily Games</a></li>
+            <li><a href="#">Anytime Games</a></li>
+            <div class="bounce-in-on-hover">
+              <li><a href="#" id="login-btn">Login/Sign Up</a></li>
+            </div>
+          </ul>
+        </nav>
       </div>
-      <div class="below-container">
-        <button id="newGame">New Game</button>
+    </header>
+    <main>
+      <div class="container">
+        <div class="title-container">
+          <h1>Shut the Box</h1>
+        </div>
+        <div class="game-container">
+          <div id="tiles"></div>
+          <div class="dice-container">
+            <img
+              id="die1"
+              src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
+              alt="Die 1"
+            />
+            <img
+              id="die2"
+              src="https://hw-fileuploader.s3.amazonaws.com/Courtney/dice-fire.png"
+              alt="Die 2"
+            />
+          </div>
+          <button id="rollDice">Roll Dice!</button>
+          <div id="message"></div>
+        </div>
+        <div class="below-container">
+          <button id="newGame">New Game</button>
+        </div>
       </div>
-    </div>
+    </main>
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Slightly Fun Games. All rights reserved.</p>
+        <script
+          type="text/javascript"
+          src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+          data-name="bmc-button"
+          data-slug="slightlyfungames"
+          data-color="#FFDD00"
+          data-emoji=""
+          data-font="Lato"
+          data-text="Buy me a coffee"
+          data-outline-color="#000000"
+          data-font-color="#000000"
+          data-coffee-color="#ffffff"
+        ></script>
+      </div>
+    </footer>
     <script src="stb.js"></script>
   </body>
 </html>
