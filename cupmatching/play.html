@@ -3,36 +3,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cup Matching Challenge</title>
-    <link rel="stylesheet" href="cm_styles.css" />
+    <link rel="stylesheet" href="cm.css" />
+    <title>Color Matching Game</title>
   </head>
   <body>
-    <div class="user-board">
-      <div class="user-box" data-index="0"></div>
-      <div class="user-box" data-index="1"></div>
-      <div class="user-box" data-index="2"></div>
-      <div class="user-box" data-index="3"></div>
-      <div class="user-box" data-index="4"></div>
+    <div id="game-container">
+      <div id="neutralBoard">
+        <div class="circle" id="circle1" draggable="true"></div>
+        <div class="circle" id="circle2" draggable="true"></div>
+        <div class="circle" id="circle3" draggable="true"></div>
+        <div class="circle" id="circle4" draggable="true"></div>
+        <div class="circle" id="circle5" draggable="true"></div>
+      </div>
+      <div id="userBoard">
+        <div class="slot" id="slot1"></div>
+        <div class="slot" id="slot2"></div>
+        <div class="slot" id="slot3"></div>
+        <div class="slot" id="slot4"></div>
+        <div class="slot" id="slot5"></div>
+      </div>
+      <div id="answerBoard">
+        <div class="answer-circle" id="answerCircle1"></div>
+        <div class="answer-circle" id="answerCircle2"></div>
+        <div class="answer-circle" id="answerCircle3"></div>
+        <div class="answer-circle" id="answerCircle4"></div>
+        <div class="answer-circle" id="answerCircle5"></div>
+      </div>
+      <div class="controls">
+        <button id="lockGuess">Lock in the Guess</button>
+        <button id="reveal">Reveal</button>
+        <button id="newGame">New Game</button>
+      </div>
     </div>
-    <div class="objects-board">
-      <div class="object" draggable="true" data-color="red"></div>
-      <div class="object" draggable="true" data-color="blue"></div>
-      <div class="object" draggable="true" data-color="green"></div>
-      <div class="object" draggable="true" data-color="yellow"></div>
-      <div class="object" draggable="true" data-color="purple"></div>
-    </div>
-    <div class="answer-board">
-      <div class="answer-box" data-color="red"></div>
-      <div class="answer-box" data-color="blue"></div>
-      <div class="answer-box" data-color="green"></div>
-      <div class="answer-box" data-color="yellow"></div>
-      <div class="answer-box" data-color="purple"></div>
-    </div>
-    <div class="controls">
-      <button id="lock-button">Lock it in</button>
-      <button id="reset-button">Reset</button>
-    </div>
-    <div class="error-message"></div>
-    <script src="cm_script.js"></script>
+    <script src="cm.js"></script>
   </body>
 </html>
