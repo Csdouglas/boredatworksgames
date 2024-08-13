@@ -21,7 +21,22 @@
       ></div>
     </header>
 
-    <main></main>
+    <main>
+      <div class="game-container">
+        <h1>Question of the Day</h1>
+        <div id="question-container">
+          <p id="question-text">Loading question...</p>
+          <ul id="answers-list">
+            <!-- Multiple choice answers will be populated here -->
+          </ul>
+          <button id="submit-btn" disabled>Submit</button>
+        </div>
+        <div id="result-container" class="hidden">
+          <p id="result-text"></p>
+          <button id="next-btn">Next Question</button>
+        </div>
+      </div>
+    </main>
     <footer>
       <div
         hx-get="/components/footer.html"

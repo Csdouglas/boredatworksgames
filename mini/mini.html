@@ -21,7 +21,34 @@
       ></div>
     </header>
 
-    <main></main>
+    <main>
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <title>Mini Crossword</title>
+          <link rel="stylesheet" href="mini.css" />
+        </head>
+        <body>
+          <div class="crossword-container">
+            <div id="crossword-grid"></div>
+            <div id="clues">
+              <h3>Across</h3>
+              <ul id="across-clues"></ul>
+              <h3>Down</h3>
+              <ul id="down-clues"></ul>
+            </div>
+          </div>
+          <button id="check-button">Check Answers</button>
+          <div id="result"></div>
+          <script src="mini.js"></script>
+        </body>
+      </html>
+    </main>
     <footer>
       <div
         hx-get="/components/footer.html"

@@ -21,7 +21,16 @@
       ></div>
     </header>
 
-    <main></main>
+    <main>
+      <div class="game-container">
+        <div class="controls">
+          <button id="start-game">Start Game</button>
+          <button id="place-ship">Place Ship</button>
+        </div>
+        <div id="player-grid" class="grid"></div>
+        <div id="opponent-grid" class="grid"></div>
+      </div>
+    </main>
     <footer>
       <div
         hx-get="/components/footer.html"
