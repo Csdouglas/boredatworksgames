@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Hosting Website</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="home.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/htmx.org"></script>
+  </head>
+  <body>
+    <header>
+    <div
+      hx-get="/components/header.html"
+      hx-trigger="load"
+      hx-swap="beforeend"
+    ></div>
+  </header>
+    <main>
+      <section id="daily-games">
+        <div class="container">
+          <h2>Daily Games</h2>
+          <div class="game-list">
+            <a href="/ws/ws.html" class="game-item-link">
+            <div class="game-item">
+              <h3>Word Search</h3>
+            </div></a>
+            <a href="/crypto/crypto.html" class="game-item-link">
+            <div class="game-item">
+              <h3>Cryptogram</h3>
+            </div></a>
+            <a href="/qod/qod.html" class="game-item-link">
+            <div class="game-item">
+              <h3>Question of the Day</h3>
+            </div></a>
+            <a href="/mini/mini.html" class="game-item-link">
+            <div class="game-item">
+              <h3>Mini Crossword</h3>
+            </div></a>
+          </div>
+        </div>
+      </section>
+
+      <section id="anytime-games">
+        <div class="container">
+          <h2>Anytime Games</h2>
+          <div class="game-list">
+            <a href="/minesweeper/ms.html" class="game-item-link">
+            <div class="game-item">
+              <h3>Minesweeper</h3>
+            </div>
+          </a> 
+            <a href="/battle/battle.html" class="game-item-link">
+              <div class="game-item">
+                  <h3>Battle Marker</h3>
+              </div>
+          </a>
+          <a href="cupmatching/cm.html" class="game-item-link"> 
+          <div class="game-item">
+              <h3>Cup Matching</h3>
+
+            </div></a> 
+            <a href="shutthebox/stb.html" class="game-item-link">
+            <div class="game-item">
+              <h3>Shut the Box</h3>
+            </div></a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+    <div
+      hx-get="/components/footer.html"
+      hx-trigger="load"
+      hx-swap="beforeend"
+    ></div></footer>
+  </div>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,101 @@
+/* Colors
+--royal-blue-traditional: #0a2463
+--celestial-blue: #3e92cc
+--ghost-white: #fffaff
+--cerise: #d8315b
+--eerie-black: #1e1b18 */
+
+/* 
+GAME CSS START */
+
+/* Existing styles... */
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.auth-box {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.logo-placeholder {
+  margin-bottom: 20px;
+}
+
+.logo-placeholder h1 {
+  font-size: 2em;
+  margin: 0;
+}
+
+.form-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+
+.toggle-btn.active {
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.form-section {
+  display: none;
+}
+
+.form-section.active {
+  display: block;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.btn {
+  background: #333;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.btn:hover {
+  background: #555;
+}
+
+.hidden {
+  display: none;
+}

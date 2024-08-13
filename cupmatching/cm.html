@@ -4,27 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="cm.css" />
+    <link rel="stylesheet" href="/../styles.css" />
+    <script src="https://unpkg.com/htmx.org"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Color Matching Game</title>
   </head>
   <body>
     <header>
-      <div class="container">
-        <div class="left-align">
-          <a href="/" class="logo-link">
-            <img src="/images/logo.png" alt="logo" />
-            <h2>SLIGHTLY<br />FUN GAMES</h2>
-          </a>
-        </div>
-        <nav>
-          <ul>
-            <li><a href="#">Daily Games</a></li>
-            <li><a href="#">Anytime Games</a></li>
-            <div class="bounce-in-on-hover">
-              <li><a href="#" id="login-btn">Login/Sign Up</a></li>
-            </div>
-          </ul>
-        </nav>
-      </div>
+      <div
+        hx-get="/components/header.html"
+        hx-trigger="load"
+        hx-swap="beforeend"
+      ></div>
     </header>
 
     <main>
@@ -58,22 +52,11 @@
       </div>
     </main>
     <footer>
-      <div class="container">
-        <p>&copy; 2024 Slightly Fun Games. All rights reserved.</p>
-        <script
-          type="text/javascript"
-          src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
-          data-name="bmc-button"
-          data-slug="slightlyfungames"
-          data-color="#FFDD00"
-          data-emoji=""
-          data-font="Lato"
-          data-text="Buy me a coffee"
-          data-outline-color="#000000"
-          data-font-color="#000000"
-          data-coffee-color="#ffffff"
-        ></script>
-      </div>
+      <div
+        hx-get="/components/footer.html"
+        hx-trigger="load"
+        hx-swap="beforeend"
+      ></div>
     </footer>
     <script src="cm.js"></script>
   </body>

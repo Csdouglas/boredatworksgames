@@ -11,7 +11,9 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
-
+/* **************************************************************************** 
+****************************HEADER/NAV**************************************
+****************************************************************************  */
 header {
   background-color: #1e1b18;
   color: #fffaff;
@@ -41,8 +43,8 @@ header .logo-link {
 }
 
 header .logo-link img {
-  width: 100px; /* Set the desired width */
-  height: auto; /* Maintain aspect ratio */
+  width: auto; /* Set the desired width */
+  height: 50px; /* Maintain aspect ratio */
   margin-right: 10px;
 }
 
@@ -77,48 +79,6 @@ nav ul li a:hover {
   font-weight: bold;
 }
 
-main {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 0 20px;
-}
-
-main h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.game-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.game-item {
-  background: #f4f4f4;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 45%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
-}
-
-.game-item:hover {
-  transform: translateY(-5px);
-}
-
-footer {
-  background: #1e1b18;
-  color: #fffaff;
-  text-align: center;
-  padding: 10px 0;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
-
 /* Login Button & Bounce */
 
 #login-btn {
@@ -144,4 +104,17 @@ footer {
   transform: scale(1.2);
   -webkit-transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
   transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
+}
+/* **************************************************************************** 
+****************************FOOTER**************************************
+****************************************************************************  */
+
+footer {
+  background: #1e1b18;
+  color: #fffaff;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
 }

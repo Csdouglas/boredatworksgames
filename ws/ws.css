@@ -1,0 +1,71 @@
+/* Colors
+--royal-blue-traditional: #0a2463
+--celestial-blue: #3e92cc
+--ghost-white: #fffaff
+--cerise: #d8315b
+--eerie-black: #1e1b18 */
+
+/* 
+GAME CSS START */
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+#game-container {
+  text-align: center;
+}
+
+#title {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+#theme {
+  margin-bottom: 10px;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(6, 50px);
+  grid-template-rows: repeat(8, 50px);
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cell.selected {
+  background-color: #ff0;
+}
+
+.cell.themed {
+  background-color: #add8e6;
+}
+
+#controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1em;
+}
