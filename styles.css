@@ -1,16 +1,16 @@
-/* Colors
---royal-blue-traditional: #0a2463
---celestial-blue: #3e92cc
---ghost-white: #fffaff
---cerise: #d8315b
---eerie-black: #1e1b18 */
-
+:root {
+  --royal-blue-traditional: #0a2463;
+  --celestial-blue: #3e92cc;
+  --ghost-white: #fffaff;
+  --cerise: #d8315b;
+  --eerie-black: #1e1b18;
+}
 /* **************************************************************************** 
 ****************************HEADER/NAV**************************************
 ****************************************************************************  */
 header {
-  background-color: #1e1b18;
-  color: #fffaff;
+  background-color: var(--eerie-black);
+  color: var(--ghost-white);
   padding: 15px 0;
   font-family: "Montserrat", sans-serif;
 }
@@ -33,7 +33,7 @@ header .logo-link {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #fffaff;
+  color: var(--ghost-white);
 }
 
 header .logo-link img {
@@ -45,7 +45,7 @@ header .logo-link img {
 header .logo-link h2 {
   margin: 0;
   font-size: 24px;
-  color: #3e92cc;
+  color: var(--celestial-blue);
 }
 
 nav ul {
@@ -60,24 +60,24 @@ nav ul li {
 }
 
 nav ul li a {
-  color: #fffaff;
+  color: var(--ghost-white);
   text-decoration: none;
   padding: 5px 10px;
   transition: background 0.3s;
 }
 
 nav ul li a:hover {
-  background-color: #fffaff;
+  background-color: var(--ghost-white);
   border-radius: 2px;
-  color: #3e92cc;
+  color: var(--celestial-blue);
   font-weight: bold;
 }
 
 /* Login Button & Bounce */
 
 #login-btn {
-  background-color: #d8315b;
-  color: #fffaff;
+  background-color: var(--cerise);
+  color: var(--ghost-white);
   border-radius: 5px;
   font-weight: normal;
 }
@@ -105,7 +105,7 @@ nav ul li a:hover {
 
 footer {
   background: #1e1b18;
-  color: #fffaff;
+  color: var(--ghost-white);
   text-align: center;
   padding: 10px 0;
   position: fixed;
@@ -119,7 +119,7 @@ footer {
   font-size: 24px;
   background: none;
   border: none;
-  color: #fffaff;
+  color: var(--ghost-white);
   cursor: pointer;
 }
 
@@ -168,7 +168,7 @@ header .container {
     top: 100%; /* Position menu directly below the header */
     left: 0; /* Align menu with the left side of the container */
     width: 100%; /* Make the menu full-width */
-    background-color: #1e1b18; /* Match the header background */
+    background-color: var(--eerie-black); /* Match the header background */
     padding: 10px 0; /* Add some vertical padding */
   }
 

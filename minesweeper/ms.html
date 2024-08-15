@@ -21,20 +21,23 @@
       ></div>
     </header>
     <main>
-      <div class="image-container">
-        <img src="/images/minesweeper-banner.png" alt="Minesweeper Banner" />
-      </div>
       <div class="game-container">
+        <div class="image-container">
+          <img src="/images/minesweeper-banner.png" alt="Minesweeper Banner" />
+        </div>
+
         <div class="banner">
-          <div class="mine-count">Mines: <span id="mine-count">0</span></div>
-          <div class="timer">Time: <span id="timer">0</span>s</div>
           <select id="difficulty" aria-label="Select difficulty">
             <option value="easy">Easy</option>
             <option value="medium">Medium</option>
             <option value="hard">Hard</option>
           </select>
-          <button id="reset-button" role="button">Reset</button>
-          <button id="testing-button">Testing Mode</button>
+          <button id="reset-button" role="button">Play again</button>
+          <!-- <button id="testing-button">Testing Mode</button> -->
+        </div>
+        <div class="game-info">
+          <div class="mine-count">Mines: <span id="mine-count">0</span></div>
+          <div class="timer">Time: <span id="timer">0</span>s</div>
         </div>
         <div id="board" class="board"></div>
       </div>

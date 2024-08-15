@@ -330,10 +330,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   resetButton.addEventListener("click", resetGame);
-  testingButton.addEventListener("click", () => {
-    testingMode = !testingMode;
-    renderBoard();
-  });
+  // testingButton.addEventListener("click", () => {
+  //   testingMode = !testingMode;
+  //   renderBoard();
+  // });
   difficultySelect.addEventListener("change", resetGame);
 
   initBoard();

@@ -20,7 +20,8 @@ main {
 }
 
 .image-container {
-  margin-bottom: 80px;
+  margin-bottom: 40px;
+  background-color: var(--ghost-white);
 }
 
 .image-container img {
@@ -35,19 +36,37 @@ main {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   margin: 0 auto 60px auto;
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
 }
 
 .banner {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: 20px;
   color: var(--ghost-white);
   flex-wrap: wrap;
   gap: 10px;
 }
 
+.game-info {
+  display: flex; /* Align items on the same row */
+  justify-content: center; /* Align items close to the start (left) */
+  align-items: center; /* Align items vertically in the center */
+  margin-bottom: 10px;
+  padding-top: 20px;
+  color: var(--ghost-white);
+}
+
+.game-info > div {
+  margin-right: 10px; /* Adjust this value to control spacing between elements */
+}
+
+.mine-count,
+.timer {
+  flex: 0.2; /* Prevent items from stretching */
+}
 #difficulty {
   background-color: var(--celestial-blue);
   color: var(--ghost-white);
@@ -166,13 +185,21 @@ button:hover {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--eerie-black);
-  color: var(--ghost-white);
+  background-color: var(--ghost-white);
+  color: var(--eerie-black);
   padding: 20px;
   border-radius: 8px;
+  border: solid var(--eerie-black);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  text-align: center;
+  text-align: center; /* Center text horizontally */
+  width: 800px;
+  height: 300px;
+
+  display: flex; /* Use flexbox for centering content */
+  flex-direction: column; /* Align items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
 }
 
 .popup p {
@@ -187,6 +214,7 @@ button:hover {
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 20px; /* Add margin to space button from text */
 }
 
 .popup button:hover {
@@ -211,7 +239,7 @@ button:hover {
   padding: 10px 20px 50px 20px;
   background-color: var(--celestial-blue);
   border-radius: 12px;
-  max-width: 1000px;
+  max-width: 1050px;
   margin: 0 auto 200px auto;
   box-sizing: border-box;
 }
