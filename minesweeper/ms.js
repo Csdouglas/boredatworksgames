@@ -149,10 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (board[row][col].isMine) {
-      revealAllMines();
+      revealAllCells();
       event.target.classList.add("exploded");
       showPopup("Boom! You hit a mine!");
-      gameOver(false);
     } else {
       openCell(row, col);
       checkVictory();
@@ -224,12 +223,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function revealAllMines() {
+  function revealAllCells() {
     for (let row = 0; row < BOARD_SIZE; row++) {
       for (let col = 0; col < BOARD_SIZE; col++) {
-        if (board[row][col].isMine) {
-          board[row][col].isOpened = true;
-        }
+        board[row][col].isOpened = true;
       }
     }
     renderBoard();
@@ -308,6 +305,7 @@ document.addEventListener("DOMContentLoaded", () => {
       highScoresElement.appendChild(table);
     }
   }
+  // Adjust the showPopup function to not interfere with the board display
   function showPopup(message) {
     const popup = document.createElement("div");
     popup.className = "popup";
