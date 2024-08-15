@@ -112,3 +112,84 @@ footer {
   width: 100%;
   bottom: 0;
 }
+
+/* Mobile Menu */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #fffaff;
+  cursor: pointer;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul.menu {
+  flex-direction: row;
+}
+
+/* Ensure no overflow on small screens */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+header .container {
+  padding: 0 15px; /* Adjust padding to avoid overflow */
+  box-sizing: border-box; /* Include padding and border in element's width/height */
+  position: relative; /* Allow absolute positioning of nav */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header .container {
+    flex-direction: row; /* Keep the logo and toggle button on the same row */
+    justify-content: space-between; /* Push the logo to the left and the toggle button to the right */
+    align-items: center;
+    padding: 0 10px; /* Reduce padding on smaller screens */
+  }
+
+  .menu-toggle {
+    display: block; /* Show the hamburger menu button */
+  }
+
+  nav ul.menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Position menu directly below the header */
+    left: 0; /* Align menu with the left side of the container */
+    width: 100%; /* Make the menu full-width */
+    background-color: #1e1b18; /* Match the header background */
+    padding: 10px 0; /* Add some vertical padding */
+  }
+
+  nav ul.menu.open {
+    display: flex;
+  }
+
+  nav ul.menu li {
+    width: 100%;
+    text-align: left;
+    margin: 10px 0;
+    padding: 10px 20px; /* Add padding for a more spacious look */
+  }
+
+  nav ul.menu li a {
+    display: block; /* Ensure the links take up the full width */
+  }
+
+  /* Adjust the logo size on mobile */
+  header .logo-link img {
+    height: 30px; /* Smaller logo height */
+    margin-right: 5px; /* Adjust spacing */
+  }
+}
