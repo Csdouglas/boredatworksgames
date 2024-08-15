@@ -1,57 +1,84 @@
-/* Colors
---royal-blue-traditional: #0a2463
---celestial-blue: #3e92cc
---ghost-white: #fffaff
---cerise: #d8315b
---eerie-black: #1e1b18 */
+:root {
+  --royal-blue-traditional: #0a2463;
+  --celestial-blue: #3e92cc;
+  --ghost-white: #fffaff;
+  --cerise: #d8315b;
+  --eerie-black: #1e1b18;
+}
 
-/* 
-GAME CSS START */
+body {
+  background-color: var(--ghost-white);
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
 main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f0f0f0;
-  margin: 0;
+  display: block;
+  text-align: center;
+  padding: 20px;
+}
+
+.image-container {
+  margin-bottom: 80px;
+}
+
+.image-container img {
+  max-width: 40%;
+  height: auto;
 }
 
 .game-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: var(--eerie-black);
   padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  margin: 0 auto 60px auto;
+  width: 100%;
+  max-width: 600px;
 }
 
-.header {
+.banner {
   display: flex;
   justify-content: space-between;
-  width: 100%;
-  max-width: 450px;
-  margin-bottom: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+  color: var(--ghost-white);
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.header > * {
-  margin: 5px 0;
+#difficulty {
+  background-color: var(--celestial-blue);
+  color: var(--ghost-white);
+  border: none;
+  border-radius: 8px;
+  padding: 5px 10px;
 }
 
-.high-scores {
-  margin-bottom: 10px;
-  font-size: 14px;
-  text-align: center;
+button {
+  background-color: var(--cerise);
+  color: var(--ghost-white);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--eerie-black);
 }
 
 .board {
   display: grid;
   gap: 2px;
-  width: 100%;
   max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
+  justify-content: center;
+  align-content: center;
+  box-sizing: border-box;
 }
 
 .cell {
@@ -60,32 +87,110 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: var(--celestial-blue);
+  color: var(--eerie-black);
   cursor: pointer;
-  background-color: #ddd;
   transition: background-color 0.2s, transform 0.2s;
 }
 
 .cell.opened {
-  background-color: #eee;
-  cursor: default;
+  background-color: var(--ghost-white);
 }
 
 .cell.flagged {
-  background-color: #ffeb3b;
+  background-color: transparent;
+  background-image: url("/images/flag.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .cell.mine {
-  background-color: #e57373;
+  background-color: transparent;
+  background-image: url("/images/bomb.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
-.cell.testing {
-  background-color: pink;
+.cell.mine.exploded {
+  position: relative;
+}
+
+.cell.mine.exploded::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-image: url("/images/explosion.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: explosion 0.5s ease-out;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes explosion {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
 }
 
 .cell:hover:not(.opened) {
-  background-color: #ccc;
+  background-color: var(--cerise);
   transform: scale(1.1);
+}
+
+.cell.testing {
+  background-color: pink; /* Example color to clearly indicate testing mode */
+  background-image: url("/images/bomb.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--eerie-black);
+  color: var(--ghost-white);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center;
+}
+
+.popup p {
+  margin-bottom: 20px;
+}
+
+.popup button {
+  background-color: var(--cerise);
+  color: var(--ghost-white);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.popup button:hover {
+  background-color: var(--celestial-blue);
 }
 
 @media (max-width: 600px) {
@@ -94,12 +199,61 @@ main {
     height: 20px;
   }
 
-  .board {
-    gap: 1px;
-  }
-
-  .header {
+  .banner {
     flex-direction: column;
     align-items: center;
   }
+}
+.high-scores {
+  color: var(--eerie-black);
+  font-weight: bold;
+  text-align: center;
+  padding: 10px 20px 50px 20px;
+  background-color: var(--celestial-blue);
+  border-radius: 12px;
+  max-width: 1000px;
+  margin: 0 auto 200px auto;
+  box-sizing: border-box;
+}
+
+.high-scores h1 {
+  color: var(--cer);
+  text-transform: uppercase;
+}
+.high-scores table {
+  width: auto; /* Allow the table to be as wide as its content */
+  margin: 0 auto; /* Center the table horizontally */
+  border-collapse: collapse; /* Optional: remove gaps between cells */
+}
+
+.high-scores th,
+.high-scores td {
+  padding: 10px;
+  border: 1px solid var(--ghost-white);
+  text-align: center; /* Center the content inside each cell */
+}
+
+.high-scores td {
+  padding-right: 100px;
+}
+
+.high-scores th {
+  background-color: var(--eerie-black);
+  color: var(--ghost-white);
+}
+
+.high-scores tbody tr:nth-child(odd) {
+  background-color: #d6d6d6;
+}
+
+.high-scores tbody tr:nth-child(even) {
+  background-color: var(--ghost-white);
+}
+.high-scores-wrapper {
+  background-color: var(--celestial-blue);
+  padding-top: 40px;
+  padding-bottom: 1000px; /* Default padding */
+  margin-top: 60px;
+  margin-bottom: 1000px; /* Add this to create space between the high scores and footer */
+  width: 100%;
 }

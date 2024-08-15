@@ -104,12 +104,14 @@ document.addEventListener("DOMContentLoaded", () => {
     boardElement.innerHTML = "";
     boardElement.style.gridTemplateColumns = `repeat(${BOARD_SIZE}, 30px)`;
     boardElement.style.gridTemplateRows = `repeat(${BOARD_SIZE}, 30px)`;
+
     for (let row = 0; row < BOARD_SIZE; row++) {
       for (let col = 0; col < BOARD_SIZE; col++) {
         const cellElement = document.createElement("div");
         cellElement.classList.add("cell");
         cellElement.dataset.row = row;
         cellElement.dataset.col = col;
+
         if (board[row][col].isOpened) {
           cellElement.classList.add("opened");
           if (board[row][col].isMine) {
@@ -120,14 +122,19 @@ document.addEventListener("DOMContentLoaded", () => {
         } else if (board[row][col].isFlagged) {
           cellElement.classList.add("flagged");
         }
+
         if (testingMode && board[row][col].isMine) {
-          cellElement.classList.add("testing");
+          cellElement.classList.add("mine", "testing");
         }
+
         cellElement.addEventListener("click", handleCellClick);
         cellElement.addEventListener("contextmenu", handleCellFlag);
         boardElement.appendChild(cellElement);
       }
     }
+
+    // Ensure high scores are correctly displayed after the board is rendered
+    loadHighScores();
   }
 
   function handleCellClick(event) {
@@ -142,6 +149,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (board[row][col].isMine) {
+      revealAllMines();
+      event.target.classList.add("exploded");
+      showPopup("Boom! You hit a mine!");
       gameOver(false);
     } else {
       openCell(row, col);
@@ -195,7 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function gameOver(won) {
     clearInterval(timer);
-    alert(won ? "Congratulations! You won!" : "Game Over! You hit a mine.");
     if (won) {
       saveHighScore();
     }
@@ -210,8 +219,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
     if (openedCells === BOARD_SIZE * BOARD_SIZE - MINE_COUNT) {
+      showPopup("Congratulations! You won!");
       gameOver(true);
     }
+  }
+
+  function revealAllMines() {
+    for (let row = 0; row < BOARD_SIZE; row++) {
+      for (let col = 0; col < BOARD_SIZE; col++) {
+        if (board[row][col].isMine) {
+          board[row][col].isOpened = true;
+        }
+      }
+    }
+    renderBoard();
   }
 
   function startTimer() {
@@ -246,33 +267,73 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("highScores", JSON.stringify(highScores));
     loadHighScores();
   }
-
   function loadHighScores() {
     const highScores = JSON.parse(localStorage.getItem("highScores")) || {};
     const difficulty = difficultySelect.value;
     const highScoreList = highScores[difficulty] || [];
-    if (!Array.isArray(highScoreList)) {
-      highScores[difficulty] = [];
-      localStorage.setItem("highScores", JSON.stringify(highScores));
-    }
-    highScoresElement.innerHTML = `<h3>Top 5 High Scores (${difficulty}):</h3>`;
+
+    highScoresElement.innerHTML = `<h1>Top 5 High Scores (${difficulty}):</h1>`;
+
     if (highScoreList.length === 0) {
       highScoresElement.innerHTML += "<p>None</p>";
     } else {
-      highScoresElement.innerHTML += `<ol>${highScoreList
-        .map((score) => `<li>${score}s</li>`)
-        .join("")}</ol>`;
+      const table = document.createElement("table");
+
+      // Create the table headers
+      const thead = document.createElement("thead");
+      const headerRow = document.createElement("tr");
+      const rankHeader = document.createElement("th");
+      rankHeader.textContent = "Rank";
+      const timeHeader = document.createElement("th");
+      timeHeader.textContent = "Time (s)";
+      headerRow.appendChild(rankHeader);
+      headerRow.appendChild(timeHeader);
+      thead.appendChild(headerRow);
+      table.appendChild(thead);
+
+      // Create the table body
+      const tbody = document.createElement("tbody");
+      highScoreList.forEach((score, index) => {
+        const row = document.createElement("tr");
+        const rankCell = document.createElement("td");
+        rankCell.textContent = index + 1;
+        const scoreCell = document.createElement("td");
+        scoreCell.textContent = score;
+        row.appendChild(rankCell);
+        row.appendChild(scoreCell);
+        tbody.appendChild(row);
+      });
+      table.appendChild(tbody);
+
+      highScoresElement.appendChild(table);
     }
-    console.log(`High Scores for ${difficulty}:`, highScoreList);
+  }
+  function showPopup(message) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = `
+        <p>${message}</p>
+        <button id="close-popup-button">Close</button>
+    `;
+    document.body.appendChild(popup);
+
+    document
+      .getElementById("close-popup-button")
+      .addEventListener("click", closePopup);
   }
 
-  function toggleTestingMode() {
-    testingMode = !testingMode;
-    renderBoard();
+  function closePopup() {
+    const popup = document.querySelector(".popup");
+    if (popup) {
+      popup.remove();
+    }
   }
 
   resetButton.addEventListener("click", resetGame);
-  testingButton.addEventListener("click", toggleTestingMode);
+  testingButton.addEventListener("click", () => {
+    testingMode = !testingMode;
+    renderBoard();
+  });
   difficultySelect.addEventListener("change", resetGame);
 
   initBoard();
