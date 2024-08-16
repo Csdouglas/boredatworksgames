@@ -149,45 +149,6 @@ main button {
   font-weight: bold;
 }
 
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: var(--ghost-white);
-  color: var(--eerie-black);
-  padding: 20px;
-  border-radius: 8px;
-  border: solid var(--eerie-black);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  text-align: center; /* Center text horizontally */
-  width: 800px;
-  height: 300px;
-  display: flex; /* Use flexbox for centering content */
-  flex-direction: column; /* Align items vertically */
-  justify-content: center; /* Center items vertically */
-  align-items: center; /* Center items horizontally */
-}
-
-.popup p {
-  margin-bottom: 20px;
-}
-
-.popup button {
-  background-color: var(--cerise);
-  color: var(--ghost-white);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px; /* Add margin to space button from text */
-}
-
-.popup button:hover {
-  background-color: var(--celestial-blue);
-}
 /* Responsive design */
 @media (max-width: 600px) {
   main .container {
@@ -249,9 +210,5 @@ main button {
     flex: 0 1 calc(100% / 6 - 10px); /* Adjust width to fit in two rows with 10px margin */
     height: 60px;
     line-height: 60px;
-  }
-  .popup {
-    width: 300px;
-    height: 100px;
   }
 }
