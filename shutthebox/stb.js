@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (openTiles.length === 0) {
       gameOver = true;
-      messageContainer.textContent = "Congratulations! You've shut the box!";
+      showPopup(`Congratulations! You won!`);
       return;
     }
 
@@ -130,10 +130,30 @@ document.addEventListener("DOMContentLoaded", () => {
         (sum, tile) => sum + parseInt(tile.textContent),
         0
       );
-      messageContainer.textContent = `Game Over! Your score is ${score}`;
+      showPopup(`Game Over! Your score is ${score}`);
     }
   }
+  // Adjust the showPopup function to not interfere with the board display
+  function showPopup(message) {
+    const popup = document.createElement("div");
+    popup.className = "popup";
+    popup.innerHTML = `
+        <p>${message}</p>
+        <button id="close-popup-button">Close</button>
+    `;
+    document.body.appendChild(popup);
 
+    document
+      .getElementById("close-popup-button")
+      .addEventListener("click", closePopup);
+  }
+
+  function closePopup() {
+    const popup = document.querySelector(".popup");
+    if (popup) {
+      popup.remove();
+    }
+  }
   function isValidMoveAvailable(openTiles, diceSum) {
     const openTileValues = openTiles.map((tile) => parseInt(tile.textContent));
     return canSum(openTileValues, diceSum);

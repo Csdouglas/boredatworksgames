@@ -1,52 +1,61 @@
-/* Colors
---royal-blue-traditional: #0a2463
---celestial-blue: #3e92cc
---ghost-white: #fffaff
---cerise: #d8315b
---eerie-black: #1e1b18 */
-
+:root {
+  --royal-blue-traditional: #0a2463;
+  --celestial-blue: #3e92cc;
+  --ghost-white: #fffaff;
+  --cerise: #d8315b;
+  --eerie-black: #1e1b18;
+}
 /* 
 GAME CSS START */
+body {
+  background-color: var(--ghost-white);
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
 main {
   font-family: "Montserrat", sans-serif;
-  background-color: #f8f9fa;
+  background-color: var(--ghost-white);
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 60vh;
   margin: 0;
 }
 
 main .container {
   width: 100%;
-  max-width: 800px;
-  padding: 20px;
+  max-width: 1000px;
+
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  background-color: var(--eerie-black);
   border-radius: 10px;
   box-sizing: border-box;
+  padding: 20px;
 }
 
-/* Add styles for the title container */
-.title-container {
-  text-align: center;
-  margin-bottom: 20px;
+.image-container {
+  margin-bottom: 40px;
+  background-color: var(--ghost-white);
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically if the container has a height */
 }
 
-.title-container h1 {
-  font-size: 36px;
-  color: darkgreen;
-  margin: 0;
+.image-container img {
+  max-width: 40%;
+  height: auto;
 }
 
 /* Add styles for the game container */
 .game-container {
-  border: 5px solid tan;
-  background-color: green;
+  border: 5px solid var(--celestial-blue);
+  background-color: var(--ghost-white);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
+  margin: 10px 100px;
 }
 
 .dice-container {
@@ -63,25 +72,23 @@ main .container {
 }
 
 /* Add styles for the below container */
-.below-container {
+.new-game-container {
   text-align: center;
   margin-top: 20px;
 }
 
-.below-container button {
-  margin: 10px;
+.new-game-container button {
+  margin-bottom: 40px;
   padding: 10px 20px;
   font-size: 16px;
-  font-weight: bold;
-  text-transform: uppercase;
-  background-color: white;
-  border: 2px solid green;
+  background-color: var(--cerise);
+  color: var(--ghost-white);
   border-radius: 5px;
   cursor: pointer;
 }
 
 .below-container button:hover {
-  background-color: lightgreen;
+  background-color: var(--celestial-blue);
 }
 
 /* Style for the dice images */
@@ -97,20 +104,20 @@ main .container {
   margin: 5px;
   line-height: 70px;
   text-align: center;
-  background-color: tan;
+  background-color: var(--celestial-blue);
   color: black; /* Ensure the text is visible */
   font-weight: bold;
   cursor: pointer;
-  border: 2px solid tan; /* Add border to make tiles visible */
+  border: 2px solid var(--eerie-black); /* Add border to make tiles visible */
   box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
 .tile.selected {
-  background-color: yellow;
+  background-color: var(--ghost-white);
 }
 .tile.closed {
-  background-color: green;
-  color: tan;
+  background-color: var(--cerise);
+
   cursor: not-allowed;
 }
 
@@ -127,8 +134,8 @@ main button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
-  background-color: tan;
-  color: black;
+  background-color: var(--celestial-blue);
+  color: var(--ghost-white);
   font-weight: bold;
   border: none;
   border-radius: 5px;
@@ -136,20 +143,106 @@ main button {
 
 #message {
   font-size: 18px;
-  color: black;
+  color: var(--eerie-black);
   margin-top: 20px;
   padding: 10px;
   font-weight: bold;
 }
 
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--ghost-white);
+  color: var(--eerie-black);
+  padding: 20px;
+  border-radius: 8px;
+  border: solid var(--eerie-black);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  text-align: center; /* Center text horizontally */
+  width: 800px;
+  height: 300px;
+  display: flex; /* Use flexbox for centering content */
+  flex-direction: column; /* Align items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+}
+
+.popup p {
+  margin-bottom: 20px;
+}
+
+.popup button {
+  background-color: var(--cerise);
+  color: var(--ghost-white);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px; /* Add margin to space button from text */
+}
+
+.popup button:hover {
+  background-color: var(--celestial-blue);
+}
 /* Responsive design */
 @media (max-width: 600px) {
-  .container {
-    padding: 10px;
+  main .container {
+    padding: 1px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
   }
 
+  .image-container {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+  }
+
+  .image-container img {
+    max-width: 80%; /* Ensure the image is responsive */
+    height: auto; /* Maintain aspect ratio */
+  }
+
+  .new-game-container {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .game-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center game content */
+  }
+
+  .dice-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .dice-container img {
+    width: 50px;
+    height: 50px;
+    margin: 0 5px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
   .title-container h1 {
     font-size: 28px;
+    text-align: center; /* Center the title text */
   }
 
   .tile {
@@ -157,18 +250,8 @@ main button {
     height: 60px;
     line-height: 60px;
   }
-
-  .dice-container img {
-    width: 50px;
-    height: 50px;
-  }
-
-  button {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
-  #message {
-    font-size: 16px;
+  .popup {
+    width: 300px;
+    height: 100px;
   }
 }

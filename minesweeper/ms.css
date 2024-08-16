@@ -65,7 +65,7 @@ main {
 
 .mine-count,
 .timer {
-  flex: 0.2; /* Prevent items from stretching */
+  flex: 0.1; /* Prevent items from stretching */
 }
 #difficulty {
   background-color: var(--celestial-blue);
@@ -222,9 +222,12 @@ button:hover {
 }
 
 @media (max-width: 600px) {
+  .game-container {
+    width: 80%;
+  }
   .cell {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
   }
 
   .banner {
@@ -282,6 +285,6 @@ button:hover {
   padding-top: 40px;
   padding-bottom: 1000px; /* Default padding */
   margin-top: 60px;
-  margin-bottom: 1000px; /* Add this to create space between the high scores and footer */
+
   width: 100%;
 }

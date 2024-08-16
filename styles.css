@@ -104,12 +104,13 @@ nav ul li a:hover {
 ****************************************************************************  */
 
 footer {
-  background: #1e1b18;
+  background: var(--eerie-black);
   color: var(--ghost-white);
   text-align: center;
   padding: 10px 0;
   position: fixed;
   width: 100%;
+
   bottom: 0;
 }
 
@@ -150,11 +151,19 @@ header .container {
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+  footer {
+    position: static; /* Change position to static on mobile */
+    margin-top: 20px; /* Add margin above the footer */
+  }
+
+  main {
+    margin-bottom: 40px; /* Add margin to the bottom of the main content */
+  }
   header .container {
     flex-direction: row; /* Keep the logo and toggle button on the same row */
     justify-content: space-between; /* Push the logo to the left and the toggle button to the right */
     align-items: center;
-    padding: 0 10px; /* Reduce padding on smaller screens */
+    padding: 0 20px 30px 5px; /* Reduce padding on smaller screens */
   }
 
   .menu-toggle {
@@ -191,5 +200,16 @@ header .container {
   header .logo-link img {
     height: 30px; /* Smaller logo height */
     margin-right: 5px; /* Adjust spacing */
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    position: static; /* Ensure footer is not fixed on mobile */
+    margin-top: 30px; /* Increase margin above the footer */
+  }
+
+  main {
+    margin-bottom: 50px; /* Increase bottom margin of the main content */
   }
 }

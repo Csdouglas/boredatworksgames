@@ -1,10 +1,10 @@
-/* Colors
---royal-blue-traditional: #0a2463
---celestial-blue: #3e92cc
---ghost-white: #fffaff
---cerise: #d8315b
---eerie-black: #1e1b18 */
-
+:root {
+  --royal-blue-traditional: #0a2463;
+  --celestial-blue: #3e92cc;
+  --ghost-white: #fffaff;
+  --cerise: #d8315b;
+  --eerie-black: #1e1b18;
+}
 body {
   font-family: "lato", sans-serif;
   margin: 0;
@@ -23,7 +23,7 @@ main h2 {
   text-align: center;
   margin-bottom: 20px;
   font-size: 3rem;
-  color: #d8315b;
+  color: var(--cerise);
 }
 
 .game-list {
@@ -35,17 +35,48 @@ main h2 {
 
 .game-item-link {
   font-family: "Montserrat", sans-serif;
-  background: #1e1b18;
+  background: var(--eerie-black);
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--ghost-white);
   border-radius: 5px;
   width: 45%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
   text-decoration: none;
-  color: #3e92cc;
+  color: var(--celestial-blue);
 }
 
-.game-item:hover {
+.game-item-link:hover {
   transform: translateY(-5px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  main h2 {
+    font-size: 2.5rem;
+  }
+
+  .game-item-link {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    margin: 10px auto;
+    padding: 0 10px;
+  }
+
+  main h2 {
+    font-size: 2rem;
+  }
+
+  .game-list {
+    gap: 10px;
+  }
+
+  .game-item-link {
+    padding: 15px;
+    font-size: 0.9rem;
+  }
 }
